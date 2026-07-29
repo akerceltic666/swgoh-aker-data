@@ -3,6 +3,7 @@ const path = require("path");
 
 const config = require("../config");
 const processFile = require("./process");
+const git = require("./git");
 
 async function main() {
 
@@ -39,6 +40,16 @@ async function main() {
         }
 
     }
+
+    console.log("");
+    console.log("Subiendo cambios a GitHub...");
+
+    git.push();
+
+    console.log("");
+    console.log("===============================");
+    console.log(" PROCESO TERMINADO");
+    console.log("===============================");
 
     console.log("");
     console.log("===============================");
