@@ -4,6 +4,8 @@ const path = require("path");
 const config = require("../config");
 const processFile = require("./process");
 const git = require("./git");
+const downloadImages = require("./downloadImages");
+
 
 async function main() {
 
@@ -58,7 +60,7 @@ async function main() {
         console.log(e);
 
     }
-    
+
     console.log("");
     console.log("Subiendo cambios a GitHub...");
 
