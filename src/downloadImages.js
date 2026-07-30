@@ -11,16 +11,8 @@ async function downloadImages(config) {
         console.log("==================================");
         console.log("Imágenes:", imageConfig.file);
 
-        const jsonPath = path.join(OUTPUT, imageConfig.file);
-
-        if (!fs.existsSync(jsonPath)) {
-
-            console.log("No existe:", jsonPath);
-            continue;
-
-        }
-
-        const json = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
+        const response = await fetch(imageConfig.url);
+        const json = await response.json();
 
         const outputFolder = path.join(
             OUTPUT,
