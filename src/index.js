@@ -41,6 +41,24 @@ async function main() {
 
     }
 
+     // Descargar imágenes
+    console.log("");
+    console.log("===============================");
+    console.log(" DESCARGANDO IMÁGENES");
+    console.log("===============================");
+
+    try {
+
+        await downloadImages(config);
+
+    }
+    catch (e) {
+
+        console.log("ERROR DESCARGANDO IMÁGENES");
+        console.log(e);
+
+    }
+    
     console.log("");
     console.log("Subiendo cambios a GitHub...");
 
@@ -51,10 +69,7 @@ async function main() {
     console.log(" PROCESO TERMINADO");
     console.log("===============================");
 
-    console.log("");
-    console.log("===============================");
-    console.log(" PROCESO TERMINADO");
-    console.log("===============================");
+  
 
 }
 
