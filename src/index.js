@@ -4,6 +4,7 @@ const path = require("path");
 const config = require("../config");
 const processFile = require("./process");
 const generateAppUnits = require("./generateAppUnits");
+const generateAppLoc = require("./generateAppLoc");
 const git = require("./git");
 const downloadImages = require("./downloadImages");
 
