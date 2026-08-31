@@ -53,7 +53,21 @@ async function main() {
 
     try {
 
+         console.log(" generateAppUnits");
         generateAppUnits();
+
+    }
+    catch (e) {
+
+        console.log("");
+        console.log("ERROR GENERANDO UNITS APP");
+        console.log(e);
+
+    }
+
+    try {
+        console.log(" generateAppLoc");
+        generateAppLoc();
 
     }
     catch (e) {
