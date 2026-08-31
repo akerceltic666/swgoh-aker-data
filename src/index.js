@@ -3,6 +3,7 @@ const path = require("path");
 
 const config = require("../config");
 const processFile = require("./process");
+const generateAppUnits = require("./generateAppUnits");
 const git = require("./git");
 const downloadImages = require("./downloadImages");
 
@@ -26,6 +27,7 @@ async function main() {
         fs.mkdirSync(output);
     }
 
+    // Procesar archivos GameData
     for (const file of config.files) {
 
         try {
@@ -43,7 +45,26 @@ async function main() {
 
     }
 
-     // Descargar imágenes
+    // Generar archivos optimizados para la app
+    console.log("");
+    console.log("===============================");
+    console.log(" GENERANDO DATOS PARA LA APP");
+    console.log("===============================");
+
+    try {
+
+        generateAppUnits();
+
+    }
+    catch (e) {
+
+        console.log("");
+        console.log("ERROR GENERANDO UNITS APP");
+        console.log(e);
+
+    }
+
+    // Descargar imágenes
     console.log("");
     console.log("===============================");
     console.log(" DESCARGANDO IMÁGENES");
@@ -70,8 +91,6 @@ async function main() {
     console.log("===============================");
     console.log(" PROCESO TERMINADO");
     console.log("===============================");
-
-  
 
 }
 
