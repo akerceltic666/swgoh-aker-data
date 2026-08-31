@@ -7,7 +7,6 @@ const OUTPUT_DIR = path.join(
     "output"
 );
 
-// Archivos de entrada
 const LOC_INPUT = path.join(
     OUTPUT_DIR,
     "Loc_SPA_XM.txt.json"
@@ -18,12 +17,6 @@ const UNITS_INPUT = path.join(
     "units_app.json"
 );
 
-const MATERIAL_INPUT = path.join(
-    OUTPUT_DIR,
-    "material.json"
-);
-
-// Archivo de salida
 const LOC_OUTPUT = path.join(
     OUTPUT_DIR,
     "loc_app.json"
@@ -38,7 +31,7 @@ function generateAppLoc() {
     console.log("===============================");
 
     // -----------------------------
-    // Cargar archivos
+    // Cargar loc original
     // -----------------------------
 
     console.log("Cargando loc original...");
@@ -49,29 +42,24 @@ function generateAppLoc() {
 
     const loc = locJson.data || locJson;
 
+
+    // -----------------------------
+    // Cargar unidades
+    // -----------------------------
+
     console.log("Cargando units_app...");
 
     const units = JSON.parse(
         fs.readFileSync(UNITS_INPUT, "utf8")
     );
 
-    console.log("Cargando materials...");
-
-    const materialJson = JSON.parse(
-        fs.readFileSync(MATERIAL_INPUT, "utf8")
-    );
-
-    const materials = materialJson.data || materialJson;
-
 
     // -----------------------------
-    // Recoger claves necesarias
+    // Recoger nameKey necesarios
     // -----------------------------
 
     const requiredKeys = new Set();
 
-
-    // Unidades
     for (const baseId of Object.keys(units)) {
 
         const unit = units[baseId];
@@ -85,27 +73,8 @@ function generateAppLoc() {
     }
 
 
-    // Materiales
-    for (const material of materials) {
-
-        if (
-            material.type === 11 ||
-            material.type === 12
-        ) {
-
-            if (material.nameKey) {
-
-                requiredKeys.add(material.nameKey);
-
-            }
-
-        }
-
-    }
-
-
     // -----------------------------
-    // Crear resultado
+    // Crear loc reducido
     // -----------------------------
 
     const result = {};
@@ -151,7 +120,7 @@ function generateAppLoc() {
     // -----------------------------
 
     console.log("");
-    console.log("Claves necesarias:", requiredKeys.size);
+    console.log("Claves de unidades:", requiredKeys.size);
     console.log("Traducciones encontradas:", encontradas);
     console.log("No encontradas:", noEncontradas);
 
@@ -177,6 +146,5 @@ function generateAppLoc() {
     console.log("");
 
 }
-
 
 module.exports = generateAppLoc;
