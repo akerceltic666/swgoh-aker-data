@@ -60,16 +60,17 @@ async function generateAppMaterial() {
     const result = {};
 
 
+    console.log(
+    "¿Existe 135Salvage?",
+    materials.some(
+        material =>
+            material.id === "135Salvage"
+    )
+);
+
     for (const material of materials) {
 
-         if (material.id === "135Salvage") {
-
-            console.log(
-                "ENCONTRADO 135Salvage:",
-                material
-            );
-
-        }
+        
 
         // Solo materiales usados por la app
         if (
