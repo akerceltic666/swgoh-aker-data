@@ -64,7 +64,7 @@ async function generateAppMaterial() {
 
         // Solo materiales usados por la app
         if (
-            material.type !== 11 &&
+           // material.type !== 11 &&
             material.type !== 12
         ) {
             continue;
