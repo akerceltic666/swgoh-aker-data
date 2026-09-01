@@ -62,6 +62,26 @@ async function generateAppRecipe() {
         }
 
 
+        if (
+        recipe.ingredients?.some(
+            ingredient => ingredient.id === "135Salvage"
+        )
+    ) {
+
+        console.log(
+            "RECETA CON 135Salvage:"
+        );
+
+        console.log(
+            JSON.stringify(
+                recipe,
+                null,
+                2
+            )
+        );
+
+    }
+    
         result[recipe.id] = {
 
             result:

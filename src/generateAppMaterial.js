@@ -60,13 +60,7 @@ async function generateAppMaterial() {
     const result = {};
 
 
-    console.log(
-    "¿Existe 135Salvage?",
-    materials.some(
-        material =>
-            material.id === "135Salvage"
-    )
-);
+  
 
     for (const material of materials) {
 
