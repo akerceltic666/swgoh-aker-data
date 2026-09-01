@@ -36,10 +36,44 @@ function generateAppUnits() {
             continue;
         }
 
+        // --------------------------------
+        // Equipamiento por Gear
+        // --------------------------------
+
+        const gear = {};
+
+        for (const tier of unit.unitTier || []) {
+
+            // Solo Gear 1-12
+            if (
+                tier.tier < 1 ||
+                tier.tier > 12
+            ) {
+                continue;
+            }
+
+            gear[tier.tier] =
+                tier.equipmentSet || [];
+
+        }
+
+        // --------------------------------
+        // Datos de la unidad
+        // --------------------------------
+
         result[unit.baseId] = {
-            nameKey: unit.nameKey,
-            thumbnailName: unit.thumbnailName,
-            grantStartTime: unit.grantStartTime
+
+            nameKey:
+                unit.nameKey,
+
+            thumbnailName:
+                unit.thumbnailName,
+
+            grantStartTime:
+                unit.grantStartTime,
+
+            gear
+
         };
 
     }
@@ -50,13 +84,24 @@ function generateAppUnits() {
     );
 
     console.log("");
-    console.log("Unidades originales:", units.length);
-    console.log("Unidades reducidas:", Object.keys(result).length);
-    console.log("Generado:", OUTPUT);
+    console.log(
+        "Unidades originales:",
+        units.length
+    );
+
+    console.log(
+        "Unidades reducidas:",
+        Object.keys(result).length
+    );
+
+    console.log(
+        "Generado:",
+        OUTPUT
+    );
+
     console.log("");
 
 }
-
 
 
 module.exports = generateAppUnits;
