@@ -69,6 +69,18 @@ async function main() {
     }
 
     try {
+        console.log(" generateAppMaterial");
+        generateAppMaterial();
+
+    }
+    catch (e) {
+
+        console.log("");
+        console.log("ERROR GENERANDO material APP");
+        console.log(e);
+
+    }
+    try {
         console.log(" generateAppLoc");
         generateAppLoc();
 
@@ -81,18 +93,7 @@ async function main() {
 
     }
 
-try {
-        console.log(" generateAppMaterial");
-        generateAppMaterial();
 
-    }
-    catch (e) {
-
-        console.log("");
-        console.log("ERROR GENERANDO material APP");
-        console.log(e);
-
-    }
 
     
 
