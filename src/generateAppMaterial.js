@@ -62,9 +62,18 @@ async function generateAppMaterial() {
 
     for (const material of materials) {
 
+         if (material.id === "135Salvage") {
+
+            console.log(
+                "ENCONTRADO 135Salvage:",
+                material
+            );
+
+        }
+
         // Solo materiales usados por la app
         if (
-           // material.type !== 11 &&
+            material.type !== 11 &&
             material.type !== 12
         ) {
             continue;
