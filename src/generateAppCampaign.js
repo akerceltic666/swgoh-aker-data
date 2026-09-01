@@ -1,13 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-const INPUT = path.join(
-    __dirname,
-    "..",
-    "output",
-    "campaign.json"
-);
-
 const OUTPUT = path.join(
     __dirname,
     "..",
@@ -15,8 +8,11 @@ const OUTPUT = path.join(
     "campaign_app.json"
 );
 
+const URL =
+    "https://raw.githubusercontent.com/swgoh-utils/gamedata/main/campaign.json";
 
-function generateAppCampaign() {
+
+async function generateAppCampaign() {
 
     console.log("");
     console.log("===============================");
@@ -24,13 +20,34 @@ function generateAppCampaign() {
     console.log("===============================");
 
 
-    const json = JSON.parse(
-        fs.readFileSync(INPUT, "utf8")
-    );
+    // -----------------------------
+    // Descargar campaign original
+    // -----------------------------
+
+    console.log("");
+    console.log("Descargando campaign.json...");
+
+    const response =
+        await fetch(URL);
+
+    if (!response.ok) {
+
+        throw new Error(
+            "No se pudo descargar campaign.json"
+        );
+
+    }
+
+    const json =
+        await response.json();
 
     const campaigns =
         json.data || json;
 
+
+    // -----------------------------
+    // Reducir datos
+    // -----------------------------
 
     const result = [];
 
@@ -106,6 +123,38 @@ function generateAppCampaign() {
                         }
 
 
+                        const rewardPreview =
+                            (
+                                mission.rewardPreview ?? []
+                            )
+
+                            .filter(reward =>
+                                reward.id?.startsWith(
+                                    "unitshard_"
+                                )
+                            )
+
+                            .map(reward => ({
+
+                                id:
+                                    reward.id
+
+                            }));
+
+
+                        // Solo necesitamos
+                        // misiones que den
+                        // fragmentos de unidades
+
+                        if (
+                            rewardPreview.length === 0
+                        ) {
+
+                            continue;
+
+                        }
+
+
                         const missionResult = {
 
                             id:
@@ -127,43 +176,16 @@ function generateAppCampaign() {
 
                                 })),
 
-                            rewardPreview:
-                                (
-                                    mission.rewardPreview ?? []
-                                )
-
-                                .filter(reward =>
-                                    reward.id?.startsWith(
-                                        "unitshard_"
-                                    )
-                                )
-
-                                .map(reward => ({
-
-                                    id:
-                                        reward.id
-
-                                }))
+                            rewardPreview
 
                         };
 
 
-                        // Solo guardamos misiones
-                        // que realmente tengan
-                        // fragmentos de unidades
-
-                        if (
-                            missionResult.rewardPreview.length === 0
-                        ) {
-
-                            continue;
-
-                        }
-
-
-                        nodeResult.campaignNodeMission.push(
-                            missionResult
-                        );
+                        nodeResult
+                            .campaignNodeMission
+                            .push(
+                                missionResult
+                            );
 
                     }
 
@@ -177,9 +199,11 @@ function generateAppCampaign() {
                     }
 
 
-                    difficultyResult.campaignNode.push(
-                        nodeResult
-                    );
+                    difficultyResult
+                        .campaignNode
+                        .push(
+                            nodeResult
+                        );
 
                 }
 
@@ -195,13 +219,17 @@ function generateAppCampaign() {
 
                 mapResult
                     .campaignNodeDifficultyGroup
-                    .push(difficultyResult);
+                    .push(
+                        difficultyResult
+                    );
 
             }
 
 
             if (
-                mapResult.campaignNodeDifficultyGroup.length === 0
+                mapResult
+                    .campaignNodeDifficultyGroup
+                    .length === 0
             ) {
 
                 continue;
@@ -209,9 +237,11 @@ function generateAppCampaign() {
             }
 
 
-            campaignResult.campaignMap.push(
-                mapResult
-            );
+            campaignResult
+                .campaignMap
+                .push(
+                    mapResult
+                );
 
         }
 
@@ -232,11 +262,19 @@ function generateAppCampaign() {
     }
 
 
+    // -----------------------------
+    // Guardar
+    // -----------------------------
+
     fs.writeFileSync(
         OUTPUT,
         JSON.stringify(result)
     );
 
+
+    // -----------------------------
+    // Estadísticas
+    // -----------------------------
 
     console.log("");
 
@@ -250,18 +288,10 @@ function generateAppCampaign() {
         result.length
     );
 
-    console.log(
-        "Tamaño original:",
-        (
-            fs.statSync(INPUT).size /
-            1024 /
-            1024
-        ).toFixed(2),
-        "MB"
-    );
+    console.log("");
 
     console.log(
-        "Tamaño nuevo:",
+        "Tamaño generado:",
         (
             fs.statSync(OUTPUT).size /
             1024

@@ -7,6 +7,9 @@ const generateAppUnits = require("./generateAppUnits");
 const generateAppLoc = require("./generateAppLoc");
 const generateAppMaterial = require("./generateAppMaterial");
 
+const generateAppCampaign = require("./generateAppCampaign");
+
+
 const git = require("./git");
 const downloadImages = require("./downloadImages");
 
