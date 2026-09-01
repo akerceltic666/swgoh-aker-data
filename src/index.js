@@ -5,6 +5,8 @@ const config = require("../config");
 const processFile = require("./process");
 const generateAppUnits = require("./generateAppUnits");
 const generateAppLoc = require("./generateAppLoc");
+const generateAppMaterial = require("./generateAppMaterial");
+
 const git = require("./git");
 const downloadImages = require("./downloadImages");
 
@@ -74,10 +76,26 @@ async function main() {
     catch (e) {
 
         console.log("");
-        console.log("ERROR GENERANDO UNITS APP");
+        console.log("ERROR GENERANDO loc APP");
         console.log(e);
 
     }
+
+try {
+        console.log(" generateAppMaterial");
+        generateAppLoc();
+
+    }
+    catch (e) {
+
+        console.log("");
+        console.log("ERROR GENERANDO material APP");
+        console.log(e);
+
+    }
+
+    
+
 
     // Descargar imágenes
     console.log("");
