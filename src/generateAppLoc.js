@@ -22,6 +22,11 @@ const MATERIAL_INPUT = path.join(
     "material_app.json"
 );
 
+const EQUIPMENT_INPUT = path.join(
+    OUTPUT_DIR,
+    "equipment_app.json"
+);
+
 const LOC_OUTPUT = path.join(
     OUTPUT_DIR,
     "loc_app.json"
@@ -72,6 +77,17 @@ function generateAppLoc() {
 
 
     // -----------------------------
+    // Cargar equipment
+    // -----------------------------
+
+    console.log("Cargando equipment_app...");
+
+    const equipment = JSON.parse(
+        fs.readFileSync(EQUIPMENT_INPUT, "utf8")
+    );
+
+
+    // -----------------------------
     // Recoger claves necesarias
     // -----------------------------
 
@@ -103,6 +119,22 @@ function generateAppLoc() {
 
             requiredKeys.add(
                 material.nameKey
+            );
+
+        }
+
+    }
+
+
+    // Equipment
+    for (const id of Object.keys(equipment)) {
+
+        const item = equipment[id];
+
+        if (item?.nameKey) {
+
+            requiredKeys.add(
+                item.nameKey
             );
 
         }

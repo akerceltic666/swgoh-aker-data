@@ -86,18 +86,7 @@ async function main() {
         console.log(e);
 
     }
-    try {
-        console.log(" generateAppLoc");
-        generateAppLoc();
-
-    }
-    catch (e) {
-
-        console.log("");
-        console.log("ERROR GENERANDO loc APP");
-        console.log(e);
-
-    }
+    
     try {
         console.log(" generateAppCampaign");
         generateAppCampaign();
@@ -135,6 +124,18 @@ async function main() {
 
     }
     
+    try {
+        console.log(" generateAppLoc");
+        generateAppLoc();
+
+    }
+    catch (e) {
+
+        console.log("");
+        console.log("ERROR GENERANDO loc APP");
+        console.log(e);
+
+    }
     
 
 
