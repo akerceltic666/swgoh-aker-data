@@ -8,6 +8,8 @@ const generateAppLoc = require("./generateAppLoc");
 const generateAppMaterial = require("./generateAppMaterial");
 
 const generateAppCampaign = require("./generateAppCampaign");
+const generateAppEquipment = require("./generateAppEquipment");
+
 
 
 const git = require("./git");
@@ -107,7 +109,18 @@ async function main() {
         console.log(e);
 
     }
+    try {
+        console.log(" generateAppEquipment");
+        generateAppEquipment();
 
+    }
+    catch (e) {
+
+        console.log("");
+        console.log("ERROR GENERANDO generateAppEquipment APP");
+        console.log(e);
+
+    }
 
     
     
