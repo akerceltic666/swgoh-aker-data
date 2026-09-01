@@ -21,7 +21,15 @@ module.exports = {
             url: "https://raw.githubusercontent.com/swgoh-utils/gamedata/main/material.json",
             folder: "materials",
             iconField: "iconKey"
+        },
+
+         {
+            file: "equipment.json",
+            url: "https://raw.githubusercontent.com/swgoh-utils/gamedata/main/equipment.json",
+            folder: "equipment",
+            iconField: "iconKey"
         }
+
 
     ]
 
