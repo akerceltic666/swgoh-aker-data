@@ -27,6 +27,11 @@ const EQUIPMENT_INPUT = path.join(
     "equipment_app.json"
 );
 
+const RECIPE_INPUT = path.join(
+    OUTPUT_DIR,
+    "recipe_app.json"
+);
+
 const LOC_OUTPUT = path.join(
     OUTPUT_DIR,
     "loc_app.json"
@@ -88,13 +93,27 @@ function generateAppLoc() {
 
 
     // -----------------------------
+    // Cargar recipes
+    // -----------------------------
+
+    console.log("Cargando recipe_app...");
+
+    const recipes = JSON.parse(
+        fs.readFileSync(RECIPE_INPUT, "utf8")
+    );
+
+
+    // -----------------------------
     // Recoger claves necesarias
     // -----------------------------
 
     const requiredKeys = new Set();
 
 
+    // -----------------------------
     // Unidades
+    // -----------------------------
+
     for (const baseId of Object.keys(units)) {
 
         const unit = units[baseId];
@@ -110,7 +129,10 @@ function generateAppLoc() {
     }
 
 
+    // -----------------------------
     // Materiales
+    // -----------------------------
+
     for (const id of Object.keys(materials)) {
 
         const material = materials[id];
@@ -126,7 +148,10 @@ function generateAppLoc() {
     }
 
 
+    // -----------------------------
     // Equipment
+    // -----------------------------
+
     for (const id of Object.keys(equipment)) {
 
         const item = equipment[id];
@@ -135,6 +160,59 @@ function generateAppLoc() {
 
             requiredKeys.add(
                 item.nameKey
+            );
+
+        }
+
+    }
+
+
+    // -----------------------------
+    // Ingredientes de recipes
+    // -----------------------------
+    //
+    // Los ingredientes de tipo 11 no
+    // están necesariamente en material_app.
+    //
+    // Su nombre está directamente en LOC
+    // siguiendo este patrón:
+    //
+    // EQUIPMENT_${ingredient.id}_NAME
+    //
+    // Ejemplo:
+    //
+    // 135Salvage
+    // ↓
+    // EQUIPMENT_135SALVAGE_NAME
+    // ↓
+    // "Parte de llamadroides de Arakyd modelo 5"
+    //
+    // -----------------------------
+
+    for (const recipeId of Object.keys(recipes)) {
+
+        const recipe = recipes[recipeId];
+
+        if (!recipe?.ingredients) {
+            continue;
+        }
+
+
+        for (const ingredient of recipe.ingredients) {
+
+            if (
+                ingredient?.type !== 11 ||
+                !ingredient?.id
+            ) {
+                continue;
+            }
+
+
+            const nameKey =
+                `EQUIPMENT_${ingredient.id}_NAME`;
+
+            requiredKeys.add(
+                nameKey
             );
 
         }
