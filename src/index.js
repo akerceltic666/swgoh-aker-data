@@ -83,7 +83,7 @@ async function main() {
 
 try {
         console.log(" generateAppMaterial");
-        generateAppLoc();
+        generateAppMaterial();
 
     }
     catch (e) {
