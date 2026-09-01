@@ -9,6 +9,7 @@ const generateAppMaterial = require("./generateAppMaterial");
 
 const generateAppCampaign = require("./generateAppCampaign");
 const generateAppEquipment = require("./generateAppEquipment");
+const generateAppRecipe = require("./generateAppRecipe");
 
 
 
@@ -121,7 +122,18 @@ async function main() {
         console.log(e);
 
     }
+    try {
+        console.log(" generateAppRecipe");
+        generateAppRecipe();
 
+    }
+    catch (e) {
+
+        console.log("");
+        console.log("ERROR GENERANDO generateAppRecipe APP");
+        console.log(e);
+
+    }
     
     
 
