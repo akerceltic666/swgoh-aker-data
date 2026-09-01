@@ -92,9 +92,21 @@ async function main() {
         console.log(e);
 
     }
+    try {
+        console.log(" generateAppCampaign");
+        generateAppCampaign();
+
+    }
+    catch (e) {
+
+        console.log("");
+        console.log("ERROR GENERANDO Campaign APP");
+        console.log(e);
+
+    }
 
 
-
+    
     
 
 
